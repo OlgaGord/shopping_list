@@ -1,27 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-const ShoppingList = () => {
+import AppHeader from "./components/app-header";
+import SearchBar from "./components/search-bar";
+import ShoppingList from "./components/shopping-list";
+
+const App = () => {
   return (
-    <ul>
-      <li>Learn React</li>
-      <li>Learn C#</li>
-    </ul>
+    <div>
+      <AppHeader />
+      <SearchBar />
+      <ShoppingList />
+    </div>
   );
 };
 
-const AppHeader = () => {
-  return <h1>Shopping list</h1>;
-};
-
-const SearchBar = () => {
-  return <input placeholder="Search" />;
-};
-
-const el = (
-  <div>
-    <AppHeader />
-    <SearchBar />
-    <ShoppingList />
-  </div>
-);
-ReactDOM.render(el, document.getElementById("root"));
+// const el = (
+//     <App />
+// );
+ReactDOM.render(<App />, document.getElementById("root"));

@@ -2,6 +2,7 @@ import React from "react";
 import AppHeader from "../app-header";
 import SearchBar from "../search-bar";
 import ShoppingList from "../shopping-list";
+import ItemStatusFilter from "../app-status-filter";
 // import "index.css";
 
 const App = () => {
@@ -12,10 +13,15 @@ const App = () => {
     ];
 
     return (
-        <div>
+        <div className="wrapper">
             <AppHeader />
-            <SearchBar />
+            <div>
+                <SearchBar />
+                <ItemStatusFilter />
+            </div>
+
             <ShoppingList shoppingDatas={shoppingData} />
+
         </div>
     );
 };

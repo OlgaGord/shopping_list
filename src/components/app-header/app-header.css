@@ -1,0 +1,12 @@
+.app-header-main {
+  margin: 0 auto;
+}
+
+.d-flex {
+  flex-wrap: nowrap;
+}
+
+.app-header-bought {
+  margin-right: 10%;
+  margin-top: 2%;
+}

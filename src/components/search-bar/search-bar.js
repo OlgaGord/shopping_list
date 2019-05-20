@@ -4,6 +4,6 @@ const SearchBar = () => {
   const searchStyle = {
     fontSize: "25px"
   };
-  return <input style={searchStyle} placeholder="Search" />;
+  return <input style={searchStyle} placeholder="Search" className="form-control search-input" />;
 };
 export default SearchBar;

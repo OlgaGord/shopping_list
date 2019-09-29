@@ -1,7 +1,12 @@
-.list-group-item {
-  width: 40%;
-  margin: 0 auto;
+.shopping-list-item.done .shopping-list-item-label {
+  text-decoration: line-through;
 }
-.list-group {
-  margin-top: 20px;
+
+.shopping-list-item.important .shopping-list-item-label {
+  font-weight: bold;
+  color: steelblue;
+}
+.shopping-list-item-label {
+  cursor: pointer;
+  user-select: none;
 }

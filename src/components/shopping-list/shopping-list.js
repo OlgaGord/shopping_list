@@ -2,12 +2,17 @@
 import React from "react";
 import "./shopping-list.css";
 import ShoppingListItem from "../shopping-list-item";
-const ShoppingList = ({ shoppingDatas }) => {
+const ShoppingList = ({ shoppingDatas, onDeleted }) => {
   const elements = shoppingDatas.map(item => {
     const { id, ...itemProps } = item;
     return (
       <li key={id} className="list-group-item">
-        <ShoppingListItem {...itemProps} />
+        <ShoppingListItem {...itemProps}
+          onDeleted={() =>
+
+            onDeleted(id)
+          }
+        />
       </li>
     );
   });

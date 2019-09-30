@@ -1,12 +1,11 @@
-.shopping-list-item.done .shopping-list-item-label {
-  text-decoration: line-through;
-}
-
-.shopping-list-item.important .shopping-list-item-label {
+.important {
   font-weight: bold;
   color: steelblue;
 }
 .shopping-list-item-label {
   cursor: pointer;
   user-select: none;
+}
+.bought {
+  text-decoration: line-through;
 }

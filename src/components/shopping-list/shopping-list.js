@@ -2,7 +2,7 @@
 import React from "react";
 import "./shopping-list.css";
 import ShoppingListItem from "../shopping-list-item";
-const ShoppingList = ({ shoppingDatas, onDeleted }) => {
+const ShoppingList = ({ shoppingDatas, onDeleted, onToggleImportant, onToggleBought }) => {
   const elements = shoppingDatas.map(item => {
     const { id, ...itemProps } = item;
     return (
@@ -12,6 +12,8 @@ const ShoppingList = ({ shoppingDatas, onDeleted }) => {
 
             onDeleted(id)
           }
+          onToggleImportant={() => onToggleImportant(id)}
+          onToggleBought={() => onToggleBought(id)}
         />
       </li>
     );

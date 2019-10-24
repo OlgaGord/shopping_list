@@ -1,4 +1,14 @@
 .itemAddForm {
-  margin-top: 5px;
-  margin-left: 150px;
+  width: 400px;
+}
+
+.itemAddForm input {
+  margin-right: 15px;
+}
+.addItem {
+  width: 40%;
+  margin: 30px auto;
+}
+.btnAddItem {
+  width: 150px;
 }

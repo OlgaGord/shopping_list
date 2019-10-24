@@ -3,37 +3,41 @@ import "./shopping-list-item.css";
 
 export default class ShoppingListItem extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      bought: false,
-      important: false
-    };
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     bought: false,
+  //     important: false
+  //   };
 
-  }
-  onLabelClick = () => {
-    // console.log(`Bought:${this.props.label}`);
-    this.setState(({ bought }) => {
-      return {
-        bought: !bought
-      }
+  // }
+  // onLabelClick = () => {
+  //   // console.log(`Bought:${this.props.label}`);
+  //   this.setState(({ bought }) => {
+  //     return {
+  //       bought: !bought
+  //     }
 
-    });
-  };
+  //   });
+  // };
 
-  onImportant = () => {
-    this.setState(({ important }) => {
+  // onImportant = () => {
+  //   this.setState(({ important }) => {
 
-      return {
-        important: !important
-      };
+  //     return {
+  //       important: !important
+  //     };
 
-    })
-  }
+  //   })
+  // }
   render() {
 
-    const { label, onDeleted } = this.props;
-    const { bought, important } = this.state;
+    const { label, onDeleted,
+      onToggleImportant,
+      onToggleBought,
+      important,
+      bought } = this.props;
+    // const { bought, important } = this.state;
 
     let className = "shopping-list-item";
     if (bought) {
@@ -48,11 +52,11 @@ export default class ShoppingListItem extends Component {
 
       <span className={className}>
         <span className="shopping-list-item-label"
-          onClick={this.onLabelClick}
+          onClick={onToggleBought}
         >{label}</span>
 
         <button type="button" className="btn btn-outline-success btn-sm float-right"
-          onClick={this.onImportant}>
+          onClick={onToggleImportant}>
           <i className="fa fa-exclamation" />
         </button>
         <button type="button" className="btn btn-outline-danger btn-sm float-right"

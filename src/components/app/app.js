@@ -12,11 +12,23 @@ export default class App extends Component {
 
     state = {
         shoppingData: [
-            { label: "Milk", important: false, id: 1 },
-            { label: "Apples", important: true, id: 2 },
-            { label: "Chicken", important: false, id: 3 }
+            this.createItem('Meat'),
+            this.createItem('Orange'),
+            this.createItem('Eggs'),
+            // { label: "Milk", important: false, id: 1 },
+            // { label: "Apples", important: true, id: 2 },
+            // { label: "Chicken", important: false, id: 3 }
         ]
     };
+
+    createItem(label) {
+        return {
+            label,
+            important: false,
+            bought: false,
+            id: this.maxID++
+        }
+    }
 
     deleteItem = (id) => {
         // console.log(id);
@@ -38,11 +50,11 @@ export default class App extends Component {
 
     addItem = (text) => {
 
-        const newItem = {
-            label: text,
-            important: false,
-            id: this.maxID++
-        };
+        const newItem = this.createItem(text);
+        // label: text,
+        // important: false,
+        // id: this.maxID++
+        // };
 
         this.setState(({ shoppingData }) => {
 
@@ -58,17 +70,78 @@ export default class App extends Component {
         });
 
     };
+
+    toggleProperty(arr, id, propName) {
+
+        const ind = arr.findIndex((el) => el.id === id);
+        const oldItem = arr[ind];
+        const newItem = { ...oldItem, [propName]: !oldItem[propName] };
+
+        return [
+
+            ...arr.slice(0, ind),
+            newItem,
+            ...arr.slice(ind + 1)
+        ];
+
+        // return {
+        //     shoppingData: newShoppingData
+        // };
+
+    }
+
+    onToggleImportant = (id) => {
+        // console.log('Toggle Important', id);
+        this.setState(({ shoppingData }) => {
+
+            return {
+                shoppingData: this.toggleProperty(shoppingData, id, 'important-')
+            };
+        });
+    };
+
+    onToggleBought = (id) => {
+
+        this.setState(({ shoppingData }) => {
+            // const ind = shoppingData.findIndex((el) => el.id === id);
+            // const oldItem = shoppingData[ind];
+            // const newItem = { ...oldItem, bought: !oldItem.bought }
+
+            // const newShoppingData = [
+
+            //     ...shoppingData.slice(0, ind),
+            //     newItem,
+            //     ...shoppingData.slice(ind + 1)
+            // ];
+
+            return {
+                shoppingData: this.toggleProperty(shoppingData, id, 'bought')
+            };
+        });
+        // console.log('Toggle Bought', id);
+    };
+
     render() {
+
+        const { shoppingData } = this.state;
+
+        const boughtCount = shoppingData
+            .filter((el) => el.bought).length;
+
+        const toBuyCount = shoppingData.length - boughtCount;
+
         return (
             <div className="wrapper" >
-                <AppHeader />
+                <AppHeader bought={boughtCount} toBuy={toBuyCount} />
                 <div>
                     <SearchBar />
                     <ItemStatusFilter />
                 </div>
 
-                <ShoppingList shoppingDatas={this.state.shoppingData}
+                <ShoppingList shoppingDatas={shoppingData}
                     onDeleted={this.deleteItem}
+                    onToggleImportant={this.onToggleImportant}
+                    onToggleBought={this.onToggleBought}
                 />
                 <ItemAddForm onItemAdded={this.addItem} />
             </div>

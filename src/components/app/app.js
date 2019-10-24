@@ -95,7 +95,7 @@ export default class App extends Component {
         this.setState(({ shoppingData }) => {
 
             return {
-                shoppingData: this.toggleProperty(shoppingData, id, 'important-')
+                shoppingData: this.toggleProperty(shoppingData, id, 'important')
             };
         });
     };

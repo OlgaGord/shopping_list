@@ -15,10 +15,8 @@ export default class App extends Component {
             this.createItem('Meat'),
             this.createItem('Orange'),
             this.createItem('Eggs'),
-            // { label: "Milk", important: false, id: 1 },
-            // { label: "Apples", important: true, id: 2 },
-            // { label: "Chicken", important: false, id: 3 }
-        ]
+        ],
+        foundItem: ''
     };
 
     createItem(label) {
@@ -51,10 +49,6 @@ export default class App extends Component {
     addItem = (text) => {
 
         const newItem = this.createItem(text);
-        // label: text,
-        // important: false,
-        // id: this.maxID++
-        // };
 
         this.setState(({ shoppingData }) => {
 
@@ -71,6 +65,23 @@ export default class App extends Component {
 
     };
 
+    itemSearched = (items, foundItem) => {
+
+        return items.filter((item) => {
+
+            if (foundItem.length === 0) {
+                return items;
+            }
+
+            return item.label.toLowerCase().indexOf(foundItem.toLowerCase()) > -1
+        });
+
+    };
+
+    searchResult = (foundItem) => {
+        this.setState({ foundItem });
+    };
+
     toggleProperty(arr, id, propName) {
 
         const ind = arr.findIndex((el) => el.id === id);
@@ -84,14 +95,10 @@ export default class App extends Component {
             ...arr.slice(ind + 1)
         ];
 
-        // return {
-        //     shoppingData: newShoppingData
-        // };
-
     }
 
     onToggleImportant = (id) => {
-        // console.log('Toggle Important', id);
+
         this.setState(({ shoppingData }) => {
 
             return {
@@ -103,27 +110,18 @@ export default class App extends Component {
     onToggleBought = (id) => {
 
         this.setState(({ shoppingData }) => {
-            // const ind = shoppingData.findIndex((el) => el.id === id);
-            // const oldItem = shoppingData[ind];
-            // const newItem = { ...oldItem, bought: !oldItem.bought }
-
-            // const newShoppingData = [
-
-            //     ...shoppingData.slice(0, ind),
-            //     newItem,
-            //     ...shoppingData.slice(ind + 1)
-            // ];
 
             return {
                 shoppingData: this.toggleProperty(shoppingData, id, 'bought')
             };
         });
-        // console.log('Toggle Bought', id);
     };
 
     render() {
 
-        const { shoppingData } = this.state;
+        const { shoppingData, foundItem } = this.state;
+
+        const itemsToShow = this.itemSearched(shoppingData, foundItem);
 
         const boughtCount = shoppingData
             .filter((el) => el.bought).length;
@@ -134,11 +132,11 @@ export default class App extends Component {
             <div className="wrapper" >
                 <AppHeader bought={boughtCount} toBuy={toBuyCount} />
                 <div>
-                    <SearchBar />
+                    <SearchBar onSearchChange={this.searchResult} />
                     <ItemStatusFilter />
                 </div>
 
-                <ShoppingList shoppingDatas={shoppingData}
+                <ShoppingList shoppingDatas={itemsToShow}
                     onDeleted={this.deleteItem}
                     onToggleImportant={this.onToggleImportant}
                     onToggleBought={this.onToggleBought}

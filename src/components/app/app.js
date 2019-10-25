@@ -16,7 +16,8 @@ export default class App extends Component {
             this.createItem('Orange'),
             this.createItem('Eggs'),
         ],
-        foundItem: ''
+        foundItem: '',
+        filterItem: 'all'
     };
 
     createItem(label) {
@@ -82,6 +83,10 @@ export default class App extends Component {
         this.setState({ foundItem });
     };
 
+    onFilter = (filterItem) => {
+        this.setState({ filterItem })
+    }
+
     toggleProperty(arr, id, propName) {
 
         const ind = arr.findIndex((el) => el.id === id);
@@ -116,24 +121,41 @@ export default class App extends Component {
             };
         });
     };
+    doFilter(items, filterItem) {
+        switch (filterItem) {
+            case 'all':
+                return items;
+            case 'active':
+                return items.filter((item) => !item.bought);
 
+            case 'bought':
+                return items.filter((item) => item.bought);
+
+            default:
+                return items;
+        }
+    }
     render() {
 
-        const { shoppingData, foundItem } = this.state;
+        const { shoppingData, foundItem, filterItem } = this.state;
 
-        const itemsToShow = this.itemSearched(shoppingData, foundItem);
+        const itemsToShow = this.doFilter(
+            this.itemSearched(shoppingData, foundItem), filterItem);
 
         const boughtCount = shoppingData
             .filter((el) => el.bought).length;
 
         const toBuyCount = shoppingData.length - boughtCount;
 
+
+
         return (
             <div className="wrapper" >
                 <AppHeader bought={boughtCount} toBuy={toBuyCount} />
                 <div>
                     <SearchBar onSearchChange={this.searchResult} />
-                    <ItemStatusFilter />
+                    <ItemStatusFilter filterItem={filterItem}
+                        onFilter={this.onFilter} />
                 </div>
 
                 <ShoppingList shoppingDatas={itemsToShow}

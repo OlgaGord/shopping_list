@@ -1,12 +1,14 @@
+.app-header {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 2rem auto;
+  width: 70%;
+}
 .app-header-main {
   margin: 0 auto;
 }
 
-.d-flex {
-  flex-wrap: nowrap;
-}
-
 .app-header-bought {
-  margin-right: 10%;
-  margin-top: 2%;
+  margin: 10px auto;
 }

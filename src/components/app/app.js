@@ -4,6 +4,7 @@ import SearchBar from "../search-bar";
 import ShoppingList from "../shopping-list";
 import ItemStatusFilter from "../app-status-filter";
 import ItemAddForm from '../item-add-form';
+import "./app.css";
 // import "index.css";
 
 export default class App extends Component {
@@ -13,7 +14,7 @@ export default class App extends Component {
     state = {
         shoppingData: [
             this.createItem('Meat'),
-            this.createItem('Orange'),
+            this.createItem('Oranges'),
             this.createItem('Eggs'),
         ],
         foundItem: '',
@@ -152,7 +153,7 @@ export default class App extends Component {
         return (
             <div className="wrapper" >
                 <AppHeader bought={boughtCount} toBuy={toBuyCount} />
-                <div>
+                <div className="searchPanel">
                     <SearchBar onSearchChange={this.searchResult} />
                     <ItemStatusFilter filterItem={filterItem}
                         onFilter={this.onFilter} />

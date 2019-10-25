@@ -1,3 +1,10 @@
 .wrapper {
-  width: 50%;
+  width: 80%;
+  height: 50rem;
+  margin: 3rem auto;
+}
+
+.searchPanel {
+  display: flex;
+  flex-direction: column;
 }
